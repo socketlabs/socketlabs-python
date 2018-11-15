@@ -1,0 +1,12 @@
+{
+  "name": "SocketLabs Injection Api",
+  "description": "SocketLabs Email Delivery Python client library",
+  "keywords": [
+    "socketlabs",
+    "deliverability",
+    "email"
+  ],
+  "website": "http://www.socketlabs.com",
+  "repository": "https://github.com/socketlabs/socketlabs-python",
+  "logo": "https://www.socketlabs.com/assets/socketlabs-logo1.png"
+}
