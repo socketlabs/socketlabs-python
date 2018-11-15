@@ -1,4 +1,4 @@
-from .string_extension import StringExtension
+from .stringextension import StringExtension
 from ..addressresult import AddressResult
 from ..message.basicmessage import BasicMessage
 from ..message.bulkmessage import BulkMessage

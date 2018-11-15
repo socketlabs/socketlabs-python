@@ -1,4 +1,4 @@
-from injectionapi.core.string_extension import StringExtension
+from ..core.stringextension import StringExtension
 
 
 class BulkRecipient(object):
