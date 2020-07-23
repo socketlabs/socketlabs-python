@@ -14,7 +14,7 @@ do so.
 
 * Check that the issue has not already been reported.
 * Check that the issue has not already been fixed in the latest code
-  (a.k.a. `master`).
+  (a.k.a. `main`).
 * Be clear, concise and precise in your description of the problem.
 * Open an issue with a descriptive title and a summary in grammatically correct,
   complete sentences.
@@ -27,7 +27,7 @@ You can request a new feature by submitting an issue to our
 consider what kind of change it is:
 
 * **Major Changes** that you wish to contribute to the project should be
-  discussed first with `csharp-socketlabs` contributors in an issue or pull request so
+  discussed first with `socketlabs-python` contributors in an issue or pull request so
   that we can develop a proper solution and better coordinate our efforts,
   prevent duplication of work, and help you to craft the change so that it is
   successfully accepted into the project.
@@ -38,7 +38,7 @@ consider what kind of change it is:
   
 - Create a personal fork of the project on Github.
 - If you created your fork a while ago be sure to pull upstream changes into your local repository.
-- Create a new branch to work on! Branch from `master`.
+- Create a new branch to work on! Branch from `main`.
 - Implement/fix your feature, comment your code.
 - Write or adapt tests as needed.
 - Add or change the documentation as needed.
