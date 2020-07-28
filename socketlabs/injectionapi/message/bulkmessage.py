@@ -39,6 +39,7 @@ class BulkMessage(MessageBase):
         self._subject = None
         self._plain_text_body = None
         self._html_body = None
+        self._amp_body = None
         self._api_template = None
         self._mailing_id = None
         self._message_id = None
@@ -173,6 +174,24 @@ class BulkMessage(MessageBase):
         :type val: str
         """
         self._html_body = val
+
+    @property
+    def amp_body(self):
+        """
+        Get the AMP portion of the message body.
+        :return the AMP body
+        :rtype str
+        """
+        return self._amp_body
+
+    @amp_body.setter
+    def amp_body(self, val: str):
+        """
+        Set the AMP portion of the message body.
+        :param val: the AMP body
+        :type val: str
+        """
+        self._amp_body = val
 
     @property
     def api_template(self):

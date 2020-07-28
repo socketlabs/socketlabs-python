@@ -72,6 +72,26 @@ class MessageBase (metaclass=ABCMeta):
 
     @property
     @abstractmethod
+    def amp_body(self):
+        """
+        Get the AMP portion of the message body.
+        :return the AMP body
+        :rtype str
+        """
+        pass
+
+    @amp_body.setter
+    @abstractmethod
+    def amp_body(self, val: str):
+        """
+        Set the AMP portion of the message body.
+        :param val: the AMP body
+        :type val: str
+        """
+        pass
+
+    @property
+    @abstractmethod
     def api_template(self):
         """
         Get the Api Template for the message.

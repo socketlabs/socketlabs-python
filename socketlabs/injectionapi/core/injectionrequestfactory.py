@@ -142,6 +142,7 @@ def generate_base_message(message: MessageBase):
     message_json.subject = message.subject
     message_json.plain_text_body = message.plain_text_body
     message_json.html_body = message.html_body
+    message_json.amp_body = message.amp_body
     message_json.mailing_id = message.mailing_id
     message_json.message_id = message.message_id
     message_json.charset = message.charset
