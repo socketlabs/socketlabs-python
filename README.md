@@ -4,7 +4,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/socketlabs/socketlabs-python.svg)](https://github.com/socketlabs/socketlabs-python/graphs/contributors)
 -->
 
-The SocketLabs Email Delivery Python library allows you to easily send email messages via the [SocketLabs Injection API](https://www.socketlabs.com/api-reference/injection-api/).  The library makes it easy to build and send any type of message supported by the API, from a simple message to a single recipient all the way to a complex bulk message sent to a group of recipients with unique merge data per recipient.
+The SocketLabs Email Delivery Python library allows you to easily send email messages via the [SocketLabs Injection API](https://www.socketlabs.com/docs/inject/).  The library makes it easy to build and send any type of message supported by the API, from a simple message to a single recipient all the way to a complex bulk message sent to a group of recipients with unique merge data per recipient.
 
 # Table of Contents
 * [Prerequisites and Installation](#prerequisites-and-installation)
@@ -179,10 +179,6 @@ This example demonstrates how to embed an image in your message.
 ### [Basic send with a web proxy](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_proxy.py)
 This example demonstrates how to use a proxy with your HTTP client.
 
-### [Basic send with Amp ](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_amp_body.py)
-This example demonstrates how to send a basic message with an AMP Html body.
-For more information about AMP please see [AMP Project](https://amp.dev/documentation/)
-
 ### [Basic send with invalid file attachment](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/invalid/basic_send_with_invalid_attachment.py)
 This example demonstrates the results of attempting to do a send with an invalid attachment.
 
@@ -211,7 +207,7 @@ your recipients from a database and create a bulk mailing with merge data.
 This example demonstrates how to send a bulk message with a specified character 
 set and special characters.
 
-### [Bulk send with Amp ](https://github.com/socketlabs/socketlabs-python//blob/master/python-examples/bulk/bulk_send_with_amp_body.py)
+### [Bulk send with Amp ](https://github.com/socketlabs/socketlabs-python//blob/master/python-examples/bulk/BulkSendWithAmpBody.cs)
 This example demonstrates how to send a bulk message with an AMP Html body.
 For more information about AMP please see [AMP Project](https://amp.dev/documentation/)
 
