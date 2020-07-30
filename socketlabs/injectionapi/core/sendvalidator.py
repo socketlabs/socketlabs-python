@@ -55,7 +55,9 @@ def has_subject(message: MessageBase):
 
 def has_message_body(message: MessageBase):
     """
-    Check if the message has a valid From Email Address
+    Check if the message has a Message Body.
+    If an Api Template is specified it will override the HtmlBody, AmpBody, and/or the textBody.
+    If no Api Template is specified the HtmlBody, AmpBody, and/or the textBody must be set
     :param message: message to validate
     :type message: MessageBase
     :return the result

@@ -143,6 +143,7 @@ class BulkMessage(MessageBase):
     def plain_text_body(self):
         """
         Get the plain text portion of the message body.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :return the plain text body
         :rtype str
         """
@@ -152,6 +153,7 @@ class BulkMessage(MessageBase):
     def plain_text_body(self, val: str):
         """
         Set the plain text portion of the message body.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :param val: the plain text body
         :type val: str
         """
@@ -161,6 +163,7 @@ class BulkMessage(MessageBase):
     def html_body(self):
         """
         Get the HTML portion of the message body.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :return the HTML body
         :rtype str
         """
@@ -170,6 +173,7 @@ class BulkMessage(MessageBase):
     def html_body(self, val: str):
         """
         Set the HTML portion of the message body.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :param val: the HTML body
         :type val: str
         """
@@ -179,6 +183,7 @@ class BulkMessage(MessageBase):
     def amp_body(self):
         """
         Get the AMP portion of the message body.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :return the AMP body
         :rtype str
         """
@@ -188,6 +193,7 @@ class BulkMessage(MessageBase):
     def amp_body(self, val: str):
         """
         Set the AMP portion of the message body.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :param val: the AMP body
         :type val: str
         """
@@ -197,6 +203,7 @@ class BulkMessage(MessageBase):
     def api_template(self):
         """
         Get the api template.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :return the api template
         :rtype str
         """
@@ -206,6 +213,7 @@ class BulkMessage(MessageBase):
     def api_template(self, val: str):
         """
         Set the api template.
+        (Optional) Either TextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         :param val: the api template
         :rtype str
         """
