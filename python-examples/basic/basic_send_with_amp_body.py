@@ -10,7 +10,7 @@ from socketlabs.injectionapi.message.__imports__ import \
 # build the message
 message = BasicMessage()
 
-message.subject = "Sending A Test Message (Basic Send)"
+message.subject = "Sending A Test Message (Basic Send With AMP Body)"
 
 message.html_body = "<html><body>" \
                     "<h1>This HTML will show if AMP is not supported on the receiving end of the email.</h1>" \
