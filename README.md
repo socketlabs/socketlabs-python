@@ -17,7 +17,7 @@ The SocketLabs Email Delivery Python library allows you to easily send email mes
 <a name="prerequisites-and-installation" id="prerequisites-and-installation"></a>
 # Prerequisites and Installation
 ## Prerequisites
-* A supported Python version (3.4, 3.5, 3.6, 3.7)
+* A supported Python version (3.4, 3.5, 3.6, 3.7, 3.8)
 * A SocketLabs account. If you don't have one yet, you can [sign up for a free account](https://signup.socketlabs.com/step-1?plan=free) to get started.
 
 ## Installation
@@ -115,7 +115,7 @@ message = BulkMessage()
 
 message.plain_text_body = "This is the body of my message sent to %%Name%%"
 message.html_body = "<html>This is the HtmlBody of my message sent to %%Name%%</html>"
-message.subject = tests
+message.subject = "Sending a test message"
 message.from_email_address = EmailAddress("from@example.com")
 
 recipient1 = BulkRecipient("recipient1@example.com")
@@ -147,8 +147,28 @@ created in the [SocketLabs Email Designer](https://www.socketlabs.com/blog/intro
 attachments, sending content that is stored in an HTML file, advanced bulk 
 merging, and even pulling recipients from a datasource.
 
-### [Basic send example](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send.py)
-This example demonstrates a Basic Send.
+### [Basic send from SocketLabs Template](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_api_template.py)
+This example demonstrates the sending of a piece of content that was created in the 
+SocketLabs Email Designer. This is also known as the [API Templates](https://www.socketlabs.com/blog/introducing-api-templates/) feature.
+
+### [Basic send from HTML file](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_from_html_file.py)
+This example demonstrates how to read in your HTML content from an HTML file 
+rather than passing in a string directly.
+
+### [Basic send with file attachment](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_attachment.py)
+This example demonstrates how to add a file attachment to your message.
+
+### [Basic send with embedded image](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_embedded_image.py)
+This example demonstrates how to embed an image in your message.
+
+### [Basic send with specified character set](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_ascii_charset.py)
+This example demonstrates sending with a specific character set.
+
+### [Basic send with custom email headers](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_custom_headers.py)
+This example demonstrates how to add custom headers to your email message.
+
+### [Basic send with a web proxy](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_proxy.py)
+This example demonstrates how to use a proxy with your HTTP client.
 
 ### [Basic send async example](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_async.py)
 Basic send async example
@@ -156,28 +176,9 @@ Basic send async example
 ### [Basic send complex example](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_complex.py)
 This example demonstrates many features of the Basic Send, including adding multiple recipients, adding message and mailing id's, and adding an embedded image.
 
-### [Basic send from HTML file](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_from_html_file.py)
-This example demonstrates how to read in your HTML content from an HTML file 
-rather than passing in a string directly.
-
-### [Basic send from SocketLabs Template](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_api_template.py)
-This example demonstrates the sending of a piece of content that was created in the 
-SocketLabs Email Designer. This is also known as the [API Templates](https://www.socketlabs.com/blog/introducing-api-templates/) feature.
-
-### [Basic send with specified character set](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_ascii_charset.py)
-This example demonstrates sending with a specific character set.
-
-### [Basic send with file attachment](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_attachment.py)
-This example demonstrates how to add a file attachment to your message.
-
-### [Basic send with custom email headers](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_custom_headers.py)
-This example demonstrates how to add custom headers to your email message.
-
-### [Basic send with embedded image](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_embedded_image.py)
-This example demonstrates how to embed an image in your message.
-
-### [Basic send with a web proxy](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_proxy.py)
-This example demonstrates how to use a proxy with your HTTP client.
+### [Basic send with Amp](https://github.com/socketlabs/socketlabs-python/blob/main/python-examples/basic/basic_send_with_amp_body.py)
+This example demonstrates how to send a basic message with an AMP Html body.
+For more information about AMP please see [AMP Project](https://amp.dev/documentation/)
 
 ### [Basic send with invalid file attachment](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/invalid/basic_send_with_invalid_attachment.py)
 This example demonstrates the results of attempting to do a send with an invalid attachment.
@@ -207,7 +208,7 @@ your recipients from a database and create a bulk mailing with merge data.
 This example demonstrates how to send a bulk message with a specified character 
 set and special characters.
 
-### [Bulk send with Amp ](https://github.com/socketlabs/socketlabs-python//blob/master/python-examples/bulk/BulkSendWithAmpBody.cs)
+### [Bulk send with Amp ](https://github.com/socketlabs/socketlabs-python/blob/main/python-examples/bulk/bulk_send_with_amp_body.py)
 This example demonstrates how to send a bulk message with an AMP Html body.
 For more information about AMP please see [AMP Project](https://amp.dev/documentation/)
 

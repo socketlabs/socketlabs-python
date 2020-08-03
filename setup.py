@@ -10,7 +10,7 @@ with open("README.md", "r", encoding='utf-8') as ld:
 setup(
     name="socketlabs_injectionapi",
     version=__version__,
-    author="David Schrenker, Matt Reibach",
+    author="David Schrenker, Matt Reibach, Ryan Lydzinski",
     author_email="support@socketlabs.com",
     description="SocketLabs Email Delivery Python client library",
     long_description=long_description,
@@ -22,6 +22,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
