@@ -11,7 +11,7 @@ from socketlabs.injectionapi.message.__imports__ import \
 message = BulkMessage()
 
 
-message.subject = "Sending A Test Message (Bulk Send)"
+message.subject = "Sending A Test Message (Bulk Send With AMP Body)"
 
 message.html_body = "<html><body>" \
                     "<h1>This HTML will show if AMP is not supported on the receiving end of the email.</h1>" \
