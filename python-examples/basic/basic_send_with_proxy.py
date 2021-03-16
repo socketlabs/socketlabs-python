@@ -26,7 +26,7 @@ server_id = int(os.environ.get('SOCKETLABS_SERVER_ID'))
 api_key = os.environ.get('SOCKETLABS_INJECTION_API_KEY')
 
 # create the proxy
-proxy = Proxy("127.0.0.1", 8888)
+proxy = Proxy("127.0.0.1", 4433)
 
 # create the client
 client = SocketLabsClient(server_id, api_key, proxy)

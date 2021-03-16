@@ -31,6 +31,7 @@ class SocketLabsClient(object):
         self._server_id = server_id
         self._api_key = api_key
         self._http_proxy = proxy
+        self._request_timeout = 120
 
     @property
     def __endpoint(self):
@@ -49,6 +50,14 @@ class SocketLabsClient(object):
         :rtype Proxy
         """
         return self._http_proxy
+    
+    @property
+    def __request_timeout(self):
+        return self._request_timeout
+    
+    @__request_timeout.setter
+    def __request_timeout(self, request_timeout):
+        self._request_timeout = request_timeout
 
     def __build_http_request(self):
         """
