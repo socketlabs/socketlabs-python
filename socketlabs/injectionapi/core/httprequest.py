@@ -28,7 +28,7 @@ class HttpRequest(object):
         PUT = 2
         DELETE = 3
 
-    def __init__(self, method: HttpRequestMethod, endpoint: HttpEndpoint):
+    def __init__(self, method: HttpRequestMethod, endpoint: HttpEndpoint, timeout: int):
         """
         Creates a new instance of the HTTP Request class
         :param method: the HTTP request method
@@ -39,6 +39,7 @@ class HttpRequest(object):
         self._request_method = method
         self._endpoint = endpoint
         self._http_proxy = None
+        self._timeout = timeout
 
     @property
     def __user_agent(self):
@@ -67,6 +68,15 @@ class HttpRequest(object):
         :rtype HttpEndpoint
         """
         return self._endpoint
+
+    @property
+    def __timeout(self):
+        """
+        The SocketLabs Injection API timeout
+        :return the Http timeout for the HTTP request
+        :rtype int
+        """ 
+        return self._timeout       
 
     @property
     def proxy(self):
@@ -162,9 +172,9 @@ class HttpRequest(object):
         :rtype HTTPSConnection
         """
         if self._http_proxy is not None:
-            connection = http.client.HTTPSConnection(self._http_proxy.host, self._http_proxy.port)
+            connection = http.client.HTTPSConnection(self._http_proxy.host, self._http_proxy.port, timeout=self.__timeout)
             connection.set_tunnel(self._endpoint.host, 443)
         else:
-            connection = http.client.HTTPSConnection(self._endpoint.host)
+            connection = http.client.HTTPSConnection(self._endpoint.host, timeout=self.__timeout)
 
         return connection

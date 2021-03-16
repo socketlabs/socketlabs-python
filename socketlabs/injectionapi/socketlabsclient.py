@@ -52,12 +52,22 @@ class SocketLabsClient(object):
         return self._http_proxy
     
     @property
-    def __request_timeout(self):
+    def request_timeout(self):
+        """
+        The SocketLabs Injection API timeout
+        :return the Http timeout for the HTTP request
+        :rtype int
+        """ 
         return self._request_timeout
     
-    @__request_timeout.setter
-    def __request_timeout(self, request_timeout):
-        self._request_timeout = request_timeout
+    @request_timeout.setter
+    def request_timeout(self, timeout: int):
+        """
+        Set the request_timeout to use when making the HTTP request
+        :param timeout: the request_timeout to use for the HTTP request
+        :type timeout: int
+        """
+        self._request_timeout = timeout
 
     def __build_http_request(self):
         """
@@ -65,7 +75,7 @@ class SocketLabsClient(object):
         :return the HttpRequest object to use for the request
         :rtype HttpRequest
         """
-        req = HttpRequest(HttpRequest.HttpRequestMethod.POST, self.__endpoint)
+        req = HttpRequest(HttpRequest.HttpRequestMethod.POST, self.__endpoint, self.request_timeout)
         if self._http_proxy is not None:
             req.proxy = self._http_proxy
         return req
