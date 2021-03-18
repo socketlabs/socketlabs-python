@@ -30,10 +30,10 @@ pip install socketlabs-injectionapi
 
 You can just download the package and install from a local archive file. 
 
-> [socketlabs_injectionapi-1.0.1.tar.gz](https://github.com/socketlabs/socketlabs-python/releases/download/1.0.1/socketlabs_injectionapi-1.0.1.tar.gz)
+> [socketlabs_injectionapi-1.1.1.tar.gz](https://github.com/socketlabs/socketlabs-python/releases/download/1.1.1/socketlabs_injectionapi-1.1.1.tar.gz)
 
 ```
-pip install <path>/socketlabs_injectionapi-1.0.1.tar.gz
+pip install <path>/socketlabs_injectionapi-1.1.1.tar.gz
 ```
 
 ### From git using pip
@@ -214,6 +214,7 @@ For more information about AMP please see [AMP Project](https://amp.dev/document
 
 <a name="version"></a>
 # Version
+* 1.1.1 - Adding request timeout value on the client for Http requests
 * 1.1.0 - Adds Amp Html Support
 * 1.0.0 - Initial Release
 
