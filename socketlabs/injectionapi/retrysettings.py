@@ -3,12 +3,14 @@ import random
 
 class RetrySettings(object):
 
+    __default_number_of_retries = 0
+    __maximum_allowed_number_of_retries = 5
+    __minimum_retry_time = timedelta(seconds=1)
+    __maximum_retry_time = timedelta(seconds=10)
+
     def __init__(self, maximum_retries = None):
 
-        self.__default_number_of_retries = 0
-        self.__maximum_allowed_number_of_retries = 5
-        self.__minimum_retry_time = timedelta(seconds=1)
-        self.__maximum_retry_time = timedelta(seconds=10)
+        
 
         if maximum_retries:
             if maximum_retries < 0:
