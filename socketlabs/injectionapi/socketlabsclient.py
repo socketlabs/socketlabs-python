@@ -6,6 +6,8 @@ from .core.httpendpoint import HttpEndpoint
 from .core.httprequest import HttpRequest
 from .core.injectionrequestfactory import InjectionRequestFactory
 from .core.sendvalidator import SendValidator
+from .core.retryhandler import RetryHandler
+from .retrysettings import RetrySettings
 from .message.basicmessage import BasicMessage
 from .message.bulkmessage import BulkMessage
 from .proxy import Proxy
@@ -32,6 +34,7 @@ class SocketLabsClient(object):
         self._api_key = api_key
         self._http_proxy = proxy
         self._request_timeout = 120
+        self._number_of_retries = 0
 
     @property
     def __endpoint(self):
@@ -68,6 +71,14 @@ class SocketLabsClient(object):
         :type timeout: int
         """
         self._request_timeout = timeout
+
+    @property
+    def number_of_retries(self):
+        return self._number_of_retries
+    
+    @number_of_retries.setter
+    def number_of_retries(self, retries: int):
+        self._number_of_retries = retries
 
     def __build_http_request(self):
         """
@@ -111,7 +122,8 @@ class SocketLabsClient(object):
         body = req_factory.generate_request(message)
 
         request = self.__build_http_request()
-        result = request.send_request(body)
+        retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
+        result = retry_handler.send(body)
         return result
 
     def __send_bulk_message(self, message: BulkMessage):
@@ -130,7 +142,8 @@ class SocketLabsClient(object):
         body = req_factory.generate_request(message)
 
         request = self.__build_http_request()
-        result = request.send_request(body)
+        retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
+        result = retry_handler.send(body)
         return result
 
     def send_async(self, message: BasicMessage, on_success, on_error):
