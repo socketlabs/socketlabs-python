@@ -159,11 +159,11 @@ class HttpRequest(object):
         connection.request("POST", self._endpoint.url, json_body, headers)
         response = connection.getresponse()
 
-        data = response.read().decode("utf-8")
-        response_code = response.status
+        # data = response.read().decode("utf-8")
+        # response_code = response.status
 
-        result = InjectionResponseParser.parse(data, response_code)
-        return result
+        # result = InjectionResponseParser.parse(data, response_code)
+        return response
 
     def __get_connection(self):
         """

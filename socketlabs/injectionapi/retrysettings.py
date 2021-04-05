@@ -13,10 +13,10 @@ class RetrySettings(object):
         if maximum_retries:
 
             if maximum_retries < 0:
-                raise ValueError("maximumNumberOfRetries must be greater than 0")
+                raise AttributeError("maximumNumberOfRetries must be greater than 0")
 
             if maximum_retries > self.__maximum_allowed_number_of_retries:
-                raise ValueError("The maximum number of allowed retries is ", self.__maximum_allowed_number_of_retries)
+                raise AttributeError("The maximum number of allowed retries is ", self.__maximum_allowed_number_of_retries)
 
             self.__maximum_number_of_retries = maximum_retries
             
