@@ -106,26 +106,21 @@ class HttpRequest(object):
         :param on_error_callback: the callback method for error
         :type on_error_callback: method
         """
-        req_queue = queue.Queue()
+
         try:
 
             th = threading.Thread(target=self.__queue_request,
                                   kwargs={
                                       "request": request,
-                                      "out_queue": req_queue
+                                      "on_success_callback": on_success_callback,
+                                      "on_error_callback": on_error_callback
                                   })
             th.start()
-            th.join()
-
-            while not th.is_alive():
-                response = req_queue.get()
-                on_success_callback(response)
-                break
-
+            
         except Exception as e:
             on_error_callback(e)
 
-    def __queue_request(self, request: InjectionRequest, out_queue):
+    def __queue_request(self, request: InjectionRequest, on_success_callback, on_error_callback):
         """
         queue method for the threaded send request.
         :param request: the injection request to send
@@ -135,9 +130,10 @@ class HttpRequest(object):
         """
         try:
             response = self.send_request(request)
-            out_queue.put(response)
+            on_success_callback(response)
+
         except Exception:
-            raise
+            on_error_callback(sys.exc_info()[0])
 
     def send_request(self, request: InjectionRequest):
         """
@@ -155,14 +151,14 @@ class HttpRequest(object):
 
         json_body = json.dumps(request.to_json())
 
-        connection = self.__get_connection()
-        connection.request("POST", self._endpoint.url, json_body, headers)
-        response = connection.getresponse()
+        try:
+            connection = self.__get_connection()
+            connection.request("POST", self._endpoint.url, json_body, headers)
+            response = connection.getresponse()
 
-        # data = response.read().decode("utf-8")
-        # response_code = response.status
+        except Exception as e:
+            raise e
 
-        # result = InjectionResponseParser.parse(data, response_code)
         return response
 
     def __get_connection(self):

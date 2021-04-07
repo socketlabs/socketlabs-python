@@ -181,7 +181,8 @@ class SocketLabsClient(object):
         body = req_factory.generate_request(message)
 
         request = self.__build_http_request()
-        request.send_async_request(body, on_success, on_error)
+        retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
+        retry_handler.send_async(body, on_success, on_error)
 
     def __send_bulk_message_async(self, message: BulkMessage, on_success, on_error):
         """
@@ -201,7 +202,8 @@ class SocketLabsClient(object):
         body = req_factory.generate_request(message)
 
         request = self.__build_http_request()
-        request.send_async_request(body, on_success, on_error)
+        retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
+        retry_handler.send_async(body, on_success, on_error)
 
     def __validate_basic_message(self, message: BasicMessage):
         """

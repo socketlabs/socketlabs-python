@@ -5,6 +5,23 @@ from socketlabs.injectionapi import SocketLabsClient
 from socketlabs.injectionapi.proxy import Proxy
 from socketlabs.injectionapi.message.__imports__ import BasicMessage, EmailAddress
 
+def on_success(response):
+    """
+    Handle the success response from the client
+    :param response: the SendResponse
+    :return: SendResponse
+    """
+    print(json.dumps(response.to_json(), indent=2))
+
+
+def on_error(exception):
+    """
+    Handle the error response from the client
+    :param exception: the Exception
+    :return: Exception
+    """
+    print(exception) 
+
 # build the message
 message = BasicMessage()
 
@@ -33,5 +50,6 @@ client.number_of_retries = 2
 
 # send the message
 response = client.send(message)
+client.send_async(message, on_success, on_error)
 
 print(json.dumps(response.to_json(), indent=2))
