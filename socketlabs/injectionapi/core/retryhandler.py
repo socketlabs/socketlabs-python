@@ -46,7 +46,7 @@ class RetryHandler(object):
                 response = self.__http_client.send_request(body)
 
                 if response.status in self.ErrorStatusCodes:
-                    raise HTTPException
+                    raise HTTPException("HttpStatusCode: {0}. Response contains server error.".format(response.status))
                 
                 data = response.read().decode("utf-8")
                 response_code = response.status
