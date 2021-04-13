@@ -122,9 +122,13 @@ class SocketLabsClient(object):
         req_factory = InjectionRequestFactory(self._server_id, self._api_key)
         body = req_factory.generate_request(message)
 
-        request = self.__build_http_request()
-        retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
-        result = retry_handler.send(body)
+        retry_handler = RetryHandler(self.__build_http_request(), RetrySettings(self.number_of_retries))
+        response = retry_handler.send(body)
+
+        data = response.read().decode("utf-8")
+        response_code = response.status
+        result = InjectionResponseParser.parse(data, response_code)
+
         return result
 
     def __send_bulk_message(self, message: BulkMessage):
@@ -142,12 +146,13 @@ class SocketLabsClient(object):
         req_factory = InjectionRequestFactory(self._server_id, self._api_key)
         body = req_factory.generate_request(message)
 
-        request = self.__build_http_request()
-        retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
+        retry_handler = RetryHandler(self.__build_http_request(), RetrySettings(self.number_of_retries))
         response = retry_handler.send(body)
+
         data = response.read().decode("utf-8")
         response_code = response.status
         result = InjectionResponseParser.parse(data, response_code)
+
         return result
 
     def send_async(self, message: BasicMessage, on_success, on_error):
@@ -184,16 +189,21 @@ class SocketLabsClient(object):
         req_factory = InjectionRequestFactory(self._server_id, self._api_key)
         body = req_factory.generate_request(message)
 
-        request = self.__build_http_request()
-        retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
-        def on_sucess_callback(response):
+        retry_handler = RetryHandler(self.__build_http_request(), RetrySettings(self.number_of_retries))
+
+        def on_success_callback(response):
+            response = retry_handler.send(body)
+
             data = response.read().decode("utf-8")
             response_code = response.status
             result = InjectionResponseParser.parse(data, response_code)
+
             on_success(result)
+
         def on_error_callback(exception):
             on_error(exception)
-        retry_handler.send_async(body, on_sucess_callback, on_error_callback)
+
+        retry_handler.send_async(body, on_success_callback, on_error_callback)
 
     def __send_bulk_message_async(self, message: BulkMessage, on_success, on_error):
         """
@@ -212,9 +222,27 @@ class SocketLabsClient(object):
         req_factory = InjectionRequestFactory(self._server_id, self._api_key)
         body = req_factory.generate_request(message)
 
+        retry_handler = RetryHandler(self.__build_http_request(), RetrySettings(self.number_of_retries))
+
+        def on_success_callback(response):
+            response = retry_handler.send(body)
+
+            data = response.read().decode("utf-8")
+            response_code = response.status
+            result = InjectionResponseParser.parse(data, response_code)
+
+            on_success(result)
+
+        def on_error_callback(exception):
+            on_error(exception)
+
+        retry_handler.send_async(body, on_success_callback, on_error_callback)
+
+        """
         request = self.__build_http_request()
         retry_handler = RetryHandler(request, RetrySettings(self.number_of_retries))
         retry_handler.send_async(body, on_success, on_error)
+        """
 
     def __validate_basic_message(self, message: BasicMessage):
         """

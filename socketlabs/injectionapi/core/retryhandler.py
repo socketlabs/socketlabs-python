@@ -2,14 +2,12 @@ from http import HTTPStatus
 from http.client import HTTPException
 from ..retrysettings import RetrySettings
 from .httprequest import HttpRequest
-from .injectionresponseparser import InjectionResponseParser
 from .serialization.injectionrequest import InjectionRequest
-import sys
 import socket
 import time
 
-class RetryHandler(object):
 
+class RetryHandler(object):
     attempts = 0
     ErrorStatusCodes = [
         HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -26,7 +24,7 @@ class RetryHandler(object):
 
         self.__http_client = http_client
         self.__retry_settings = settings
-    
+
     def send(self, body):
 
         if self.__retry_settings.maximum_number_of_retries == 0:
@@ -43,7 +41,7 @@ class RetryHandler(object):
                     raise HTTPException("HttpStatusCode: {0}. Response contains server error.".format(response.status))
 
                 return response
-            
+
             except socket.timeout:
 
                 self.attempts += 1
@@ -51,16 +49,16 @@ class RetryHandler(object):
                 if self.attempts > self.__retry_settings.maximum_number_of_retries:
                     raise socket.timeout
                 time.sleep(wait_interval.seconds)
-                
+
             except HTTPException:
 
                 self.attempts += 1
-                
+
                 if self.attempts > self.__retry_settings.maximum_number_of_retries:
                     raise HTTPException
                 time.sleep(wait_interval.seconds)
-            
-    def send_async( self, request: InjectionRequest, on_success_callback, on_error_callback):
+
+    def send_async(self, request: InjectionRequest, on_success_callback, on_error_callback):
 
         wait_interval = self.__retry_settings.get_next_wait_interval(self.attempts)
 
@@ -89,4 +87,3 @@ class RetryHandler(object):
                 on_error_callback(exception)
 
         self.__http_client.send_async_request(request, on_success, on_error)
-          
