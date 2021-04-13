@@ -30,13 +30,7 @@ class RetryHandler(object):
     def send(self, body):
 
         if self.__retry_settings.maximum_number_of_retries == 0:
-
-            response = self.__http_client.send_request(body)
-            data = response.read().decode("utf-8")
-            response_code = response.status
-            result = InjectionResponseParser.parse(data, response_code)
-            
-            return result
+            return self.__http_client.send_request(body)
 
         while True:
             wait_interval = self.__retry_settings.get_next_wait_interval(self.attempts)
@@ -47,12 +41,8 @@ class RetryHandler(object):
 
                 if response.status in self.ErrorStatusCodes:
                     raise HTTPException("HttpStatusCode: {0}. Response contains server error.".format(response.status))
-                
-                data = response.read().decode("utf-8")
-                response_code = response.status
-                result = InjectionResponseParser.parse(data, response_code)
 
-                return result
+                return response
             
             except socket.timeout:
 
@@ -83,11 +73,7 @@ class RetryHandler(object):
                 self.send_async(request, on_success_callback, on_error_callback)
 
             else:
-
-                data = response.read().decode("utf-8")
-                response_code = response.status
-                result = InjectionResponseParser.parse(data, response_code)
-                on_success_callback(result)
+                on_success_callback(response)
 
         def on_error(exception):
 
