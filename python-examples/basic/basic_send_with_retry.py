@@ -45,7 +45,7 @@ proxy = Proxy("127.0.0.1", 4433)
 
 # create the client
 client = SocketLabsClient(server_id, api_key, proxy)
-client.request_timeout = 10
+
 client.number_of_retries = 2
 
 # send the message
