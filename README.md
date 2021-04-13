@@ -30,10 +30,10 @@ pip install socketlabs-injectionapi
 
 You can just download the package and install from a local archive file. 
 
-> [socketlabs_injectionapi-1.1.1.tar.gz](https://github.com/socketlabs/socketlabs-python/releases/download/1.1.1/socketlabs_injectionapi-1.1.1.tar.gz)
+> [socketlabs_injectionapi-1.2.1.tar.gz](https://github.com/socketlabs/socketlabs-python/releases/download/1.2python setup.py sdist bdist_wheel.1/socketlabs_injectionapi-1.2.1.tar.gz)
 
 ```
-pip install <path>/socketlabs_injectionapi-1.1.1.tar.gz
+pip install <path>/socketlabs_injectionapi-1.2.1.tar.gz
 ```
 
 ### From git using pip
@@ -170,6 +170,9 @@ This example demonstrates how to add custom headers to your email message.
 ### [Basic send with a web proxy](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_proxy.py)
 This example demonstrates how to use a proxy with your HTTP client.
 
+### [Basic send with retry enabled](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_send_with_retry.py)
+This example demonstrates how to use the retry logic with your HTTP client.
+
 ### [Basic send async example](https://github.com/socketlabs/socketlabs-python/blob/master/python-examples/basic/basic_async.py)
 Basic send async example
 
@@ -214,6 +217,7 @@ For more information about AMP please see [AMP Project](https://amp.dev/document
 
 <a name="version"></a>
 # Version
+* 1.2.1 - Adding optional retry logic for Http requests. If configured, the request will retry when certain 500 errors occur (500, 502, 503, 504)
 * 1.1.1 - Adding request timeout value on the client for Http requests
 * 1.1.0 - Adds Amp Html Support
 * 1.0.0 - Initial Release
