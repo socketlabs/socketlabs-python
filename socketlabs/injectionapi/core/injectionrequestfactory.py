@@ -5,6 +5,7 @@ from ..core.serialization.injectionrequest import InjectionRequest
 from ..core.serialization.mergedatajson import MergeDataJson
 from ..core.serialization.mergefieldjson import MergeFieldJson
 from ..core.serialization.messagejson import MessageJson
+from ..core.serialization.metadatajson import MetadataJson
 from ..message.basicmessage import BasicMessage
 from ..message.bulkmessage import BulkMessage
 from ..message.bulkrecipient import BulkRecipient
@@ -54,6 +55,22 @@ def populate_custom_headers(custom_headers: list):
     for item in custom_headers:
         custom_header_json.append(CustomHeaderJson(item.name, item.value))
     return custom_header_json
+
+
+def populate_metadata(metadata: list):
+    """
+    Converts a List of Metadata objects to a List of MetadataJson objects.
+    :param metadata: list of Metadata to convert
+    :type metadata: list
+    :return the converted list of MetadataJson
+    :rtype list
+    """
+    if metadata is None:
+        return None
+    metadata_json = []
+    for item in metadata:
+        metadata_json.append(MetadataJson(item.name, item.value))
+    return metadata_json
 
 
 def populate_attachments(attachments: list):
@@ -149,11 +166,16 @@ def generate_base_message(message: MessageBase):
     message_json.from_email_address = email_address_to_address_json(message.from_email_address)
     message_json.custom_headers = populate_custom_headers(message.custom_headers)
     message_json.attachments = populate_attachments(message.attachments)
+    message_json.metadata = populate_metadata(message.custom_headers)
+    message_json.tags = message.tags
+
     if message.api_template is not None:
         message_json.api_template = str(message.api_template)
 
     if message.reply_to_email_address:
         message_json.reply_to_email_address = email_address_to_address_json(message.reply_to_email_address)
+
+    print (message_json)
 
     return message_json
 
