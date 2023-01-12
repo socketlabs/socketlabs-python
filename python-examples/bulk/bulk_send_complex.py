@@ -156,7 +156,6 @@ attachment4.add_custom_header("Place", "Beach")
 
 message.add_attachment(attachment4)
 
-
 # Adding Custom Headers
 # ==========================
 # Add CustomHeader using a list
@@ -172,6 +171,36 @@ message.custom_headers.append(CustomHeader("message-has-attachments", "true"))
 # Add CustomHeader using the add_custom_header function
 message.add_custom_header("testMessageHeader", "I am a message header")
 
+# Adding Metadata
+# ==========================
+# Add Metadata using a list
+
+metadata = [
+    Metadata("example-type", "basic-send-complex-example"),
+    Metadata("message-contains", "attachments, headers")
+]
+message.metadata = metadata
+
+# Add Metadata directly to the list
+message.metadata.append(Metadata("message-has-attachments", "true"))
+
+# Add Metadata using the add_metadata function
+message.add_metadata("testMessageHeader", "I am metadata")
+
+# Adding Tags
+# ==========================
+# Add Metadata using a list
+
+tags = [
+    "example-type:basic-send-complex-example"
+]
+message.tags = metadata
+
+# Add Metadata directly to the list
+message.metadata.append("message-has-attachments:true")
+
+# Add Metadata using the add_metadata function
+message.add_tags("I am a test message")
 
 # get credentials from environment variables
 server_id = int(os.environ.get('SOCKETLABS_SERVER_ID'))
