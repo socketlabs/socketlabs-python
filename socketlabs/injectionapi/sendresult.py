@@ -1,9 +1,9 @@
 from enum import Enum
 
 
-class SendResult(Enum):        
-    """ 
-    Enumerated result of the client send 
+class SendResult(Enum):
+    """
+    Enumerated result of the client send
     """
 
     """ An error has occurred that was unforeseen """
@@ -117,6 +117,9 @@ class SendResult(Enum):
     """ SDK Validation Error : Invalid Custom Headers were found in the message """
     MessageValidationInvalidCustomHeaders = 36
 
+    """ SDK Validation Error : Message contains invalid metadata """
+    MessageValidationInvalidMetadata = 37
+
     def __str__(self):
         """
         String representation of the SendResult Enum
@@ -167,6 +170,8 @@ class SendResult(Enum):
             35: "SDK Validation Error : No message body was found in the message",
             36: "SDK Validation Error : "
                 "Invalid Custom Headers were found in the message",
+            37: "SDK Validation Error : "
+                "Message contains invalid metadata",
         }
         return switcher.get(self.value, "An error has occurred that was unforeseen")
 
