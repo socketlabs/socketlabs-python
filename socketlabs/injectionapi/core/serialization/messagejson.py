@@ -495,7 +495,7 @@ class MessageJson(object):
             e = []
             for i in self.metadata:
                 e.append(i.to_json())
-            json["meta"] = e
+            json["metadata"] = e
 
         if len(self.tags) > 0:
             json["tags"] = self.tags
