@@ -414,12 +414,12 @@ class BulkMessage(MessageBase):
         :param val: the metadata value, required if name is str
         :type val: str
         """
-        if isinstance(header, Metadata):
-            self._metadata.append(header)
-        if isinstance(header, str):
-            self._metadata.append(Metadata(header, val))
-        if isinstance(header, dict):
-            for name, value in header.items():
+        if isinstance(name, Metadata):
+            self._metadata.append(name)
+        if isinstance(name, str):
+            self._metadata.append(Metadata(name, val))
+        if isinstance(name, dict):
+            for name, value in name.items():
                 self._metadata.append(Metadata(name, value))
 
     @property

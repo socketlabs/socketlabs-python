@@ -175,8 +175,6 @@ def generate_base_message(message: MessageBase):
     if message.reply_to_email_address:
         message_json.reply_to_email_address = email_address_to_address_json(message.reply_to_email_address)
 
-    print (message_json)
-
     return message_json
 
 

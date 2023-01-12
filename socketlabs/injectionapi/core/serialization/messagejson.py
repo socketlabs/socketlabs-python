@@ -410,8 +410,7 @@ class MessageJson(object):
         self._tags = []
         if val is not None:
             for item in val:
-                if isinstance(item, (dict, list)):
-                    self._tags.append(item)
+                self._tags.append(item)
 
     def add_tags(self, val: str):
         """
