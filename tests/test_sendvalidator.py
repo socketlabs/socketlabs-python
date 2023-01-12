@@ -22,7 +22,7 @@ class TestSendValidator(unittest.TestCase):
     """ validate_base_message """
 
     def test_validate_base_message_ReturnsMessageValidationEmptySubject_WhenSubjectIsEmpty(self):
-        
+
         #  Arrange
         message = BasicMessage()
         message.subject = None
@@ -34,7 +34,7 @@ class TestSendValidator(unittest.TestCase):
         self.assertEqual(SendResult.MessageValidationEmptySubject, actual)
 
     def test_validate_base_message_ReturnsEmailAddressValidationMissingFrom_WhenFromRecipientIsNone(self):
-        
+
         #  Arrange
         message = BasicMessage()
         message.subject = self.random_helper.random_string()
@@ -111,6 +111,20 @@ class TestSendValidator(unittest.TestCase):
 
         #  Assert
         self.assertEqual(SendResult.MessageValidationInvalidCustomHeaders, actual)
+
+    def test_validate_base_message_ReturnsMessageValidationInvalidMetadata_WhenMetadataAreInvalid(self):
+        #  Arrange
+        message = BasicMessage()
+        message.subject = self.random_helper.random_string()
+        message.from_email_address = self.random_helper.random_email_address()
+        message.html_body = self.random_helper.random_string()
+        message.add_metadata("", "")
+
+        #  Act
+        actual = validate_base_message(message)
+
+        #  Assert
+        self.assertEqual(SendResult.MessageValidationInvalidMetadata, actual)
 
     def test_validate_base_message_ReturnsSuccess_WhenSubjectAndFromRecipientAndHtmlBodyIsNotEmpty(self):
         #  Arrange
@@ -252,7 +266,7 @@ class TestSendValidator(unittest.TestCase):
         self.assertFalse(actual)
 
     """ validate_email_addresses (BasicMessage) """
-        
+
     def test_validate_email_addresses_BasicMessage_ReturnsNoRecipients_WhenToAndCcAndBccIsNone(self):
         #  Arrange
         message = BasicMessage()
@@ -262,7 +276,7 @@ class TestSendValidator(unittest.TestCase):
 
         #  Assert
         self.assertEqual(SendResult.RecipientValidationNoneInMessage, actual.result)
-        
+
     def test_validate_email_addresses_BasicMessage_ReturnsSuccess_WhenToIsNotEmpty(self):
         #  Arrange
         message = BasicMessage()
@@ -273,7 +287,7 @@ class TestSendValidator(unittest.TestCase):
 
         #  Assert
         self.assertEqual(SendResult.Success, actual.result)
-        
+
     def test_validate_email_addresses_BasicMessage_ReturnsSuccess_WhenCcIsNotEmpty(self):
         #  Arrange
         message = BasicMessage()
@@ -284,7 +298,7 @@ class TestSendValidator(unittest.TestCase):
 
         #  Assert
         self.assertEqual(SendResult.Success, actual.result)
-        
+
     def test_validate_email_addresses_BasicMessage_ReturnsSuccess_WhenBccIsNotEmpty(self):
         #  Arrange
         message = BasicMessage()
@@ -295,7 +309,7 @@ class TestSendValidator(unittest.TestCase):
 
         #  Assert
         self.assertEqual(SendResult.Success, actual.result)
-        
+
     def test_validate_email_addresses_BasicMessage_ReturnsTooManyRecipients_WhenEmailListHasToManyRecipients(self):
         #  Arrange
         num_in_list = int(maximumRecipientsPerMessage / 2)
@@ -309,7 +323,7 @@ class TestSendValidator(unittest.TestCase):
 
         #  Assert
         self.assertEqual(SendResult.RecipientValidationMaxExceeded, actual.result)
-        
+
     def test_validate_email_addresses_BasicMessage_ReturnsTooManyRecipients_WhenToHasToManyRecipients(self):
         #  Arrange
         num_in_list = int(maximumRecipientsPerMessage + 1)
@@ -359,7 +373,7 @@ class TestSendValidator(unittest.TestCase):
         self.assertEqual(SendResult.RecipientValidationMaxExceeded, actual.result)
 
     """ has_subject """
-    
+
     def test_has_subject_ReturnsFalse_WhenSubjectIsEmpty(self):
         message = BasicMessage()
         message.subject = None
@@ -532,8 +546,8 @@ class TestSendValidator(unittest.TestCase):
         # Arrange
         message = BasicMessage()
         message.to_email_address = [EmailAddress(self.random_helper.random_string())]
-        
-        # Act        
+
+        # Act
         actual = has_invalid_email_addresses(message)
 
         # Assert
@@ -590,7 +604,7 @@ class TestSendValidator(unittest.TestCase):
     """ has_invalid_recipients(BulkMessage) """
 
     def test_has_invalid_recipients_BulkMessage_ReturnsListOfOne_WhenToHasOneInvalid(self):
-        
+
         # Arrange
         message = BulkMessage()
         message.to_recipient = [BulkRecipient(self.random_helper.random_string())]
@@ -602,7 +616,7 @@ class TestSendValidator(unittest.TestCase):
         self.assertEqual(1, len(actual))
 
     def test_has_invalid_recipients_BasicMessage_ReturnsListOfThree_WhenToHasThreeInvalid(self):
-        
+
         # Arrange
         message = BulkMessage()
         message.to_recipient = [
@@ -770,13 +784,13 @@ class TestSendValidator(unittest.TestCase):
     def test_has_valid_custom_headers_ReturnsTrue_WhenListIsValid(self):
         # Arrange
         headers = [CustomHeader(self.random_helper.random_string(), self.random_helper.random_string())]
-        
+
         # Act
         actual = has_valid_custom_headers(headers)
 
         # Assert
         self.assertTrue(actual)
-        
+
     """ validate_credentials """
 
     def test_validate_credentials_ReturnsAuthenticationError_WhenServerIdAndApiKeyIsEmpty(self):
@@ -805,9 +819,9 @@ class TestSendValidator(unittest.TestCase):
 
         # Assert
         self.assertEqual(SendResult.AuthenticationValidationFailed, actual.result)
-    
+
     def test_validate_credentials_ReturnsAuthenticationError_WhenApiKeyIsNotEmptyAndServerIdIsEmpty(self):
-    
+
         # Arrange
         server_id = None
         api_key = self.random_helper.random_string()
@@ -821,7 +835,7 @@ class TestSendValidator(unittest.TestCase):
         self.assertEqual(SendResult.AuthenticationValidationFailed, actual.result)
 
     def test_validate_credentials_ReturnsSuccess_WhenApiKeyAndServerIdIsNotEmpty(self):
-    
+
         # Arrange
         server_id = self.random_helper.random_server_id()
         api_key = self.random_helper.random_string()
@@ -832,7 +846,7 @@ class TestSendValidator(unittest.TestCase):
 
         # Assert
         self.assertEqual(SendResult.Success, actual.result)
-        
+
 
 if __name__ == '__main__':
     unittest.main()
