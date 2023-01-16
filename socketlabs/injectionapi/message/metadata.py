@@ -3,46 +3,46 @@ from ..core.stringextension import StringExtension
 
 class Metadata(object):
     """
-    Represents a metadata as a name-value pair.
+    Represents a metadata as a key-value pair.
 
     :Example:
 
         metadata1 = Metadata()
-        metadata1.name = "name1"
+        metadata1.key = "key1"
         metadata1.value = "value1"
 
-        metadata2 = Metadata("name1", "value1")
+        metadata2 = Metadata("key1", "value1")
 
     """
 
-    def __init__(self, name: str = None, val: str = None):
+    def __init__(self, key: str = None, val: str = None):
         """
         Initializes a new instance of the Metadata class
-        :param name: the name of the metadata
-        :type name: str
+        :param key: the key of the metadata
+        :type key: str
         :param val: the value of the metadata
         :type val: str
         """
-        self._name = name
+        self._key = key
         self._value = val
 
     @property
-    def name(self):
+    def key(self):
         """
-        Get the name
-        :return the name
+        Get the key
+        :return the key
         :rtype str
         """
-        return str(self._name)
+        return str(self._key)
 
-    @name.setter
-    def name(self, val: str):
+    @key.setter
+    def key(self, val: str):
         """
-        Set the name
-        :param val: the name
+        Set the key
+        :param val: the key
         :type val: str
         """
-        self._name = val
+        self._key = val
 
     @property
     def value(self):
@@ -68,16 +68,16 @@ class Metadata(object):
         :return the result
         :rtype bool
         """
-        validName = not StringExtension.is_none_or_white_space(self._name)
-        validValue = not StringExtension.is_none_or_white_space(self._value)
-        if validName and validValue:
+        validkey = not StringExtension.is_none_or_white_space(self._key)
+        validvalue = not StringExtension.is_none_or_white_space(self._value)
+        if validkey and validvalue:
             return True
         return False
 
     def __str__(self):
         """
-        Represents the Metadata name-value pair as a string
+        Represents the Metadata key-value pair as a string
         :return the string
         :rtype str
         """
-        return str(self._name + ", " + self._value)
+        return str(self._key + ", " + self._value)

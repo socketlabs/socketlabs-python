@@ -201,6 +201,7 @@ message.tags.append("message-has-attachments:true")
 
 # Add Metadata using the add_metadata function
 message.add_tag("I am a test message")
+message.add_tag("python-Example")
 
 # get credentials from environment variables
 server_id = int(os.environ.get('SOCKETLABS_SERVER_ID'))

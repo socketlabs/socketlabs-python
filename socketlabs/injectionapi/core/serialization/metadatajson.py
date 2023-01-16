@@ -1,37 +1,36 @@
 class MetadataJson(object):
     """
-    Represents a metadata as a name and value pair.
+    Represents a metadata as a key and value pair.
     To be serialized into JSON string before sending to the Injection Api.
     """
 
-    def __init__(self, name: str = None, val: str = None):
+    def __init__(self, key: str = None, val: str = None):
         """
         Initializes a new instance of the MetadataJson class
-        :param name: the name of the metadata
-        :type name: str
+        :param key: the key of the metadata
+        :type key: str
         :param val: the value of the metadata
         :type val: str
         """
-        self._name = name
+        self._key = key
         self._value = val
 
     @property
-    def name(self):
+    def key(self):
         """
-        The name of the metadata.
-        :return the name
+        The key of the metadata.
+        :return the key
         :rtype str
         """
-        return str(self._name)
+        return str(self._key)
 
-    @name.setter
-    def name(self, val: str):
+    @key.setter
+    def key(self, val: str):
         """
-        Set the name of the metadata.
-        :param val: the name
-        :type val: str
+        Set the key of the metadata.
+key        :type val: str
         """
-        self._name = val
+        self._key = val
 
     @property
     def value(self):
@@ -58,6 +57,6 @@ class MetadataJson(object):
         :rtype dict
         """
         return {
-            "name":  self._name,
+            "key":  self._key,
             "value": self._value
         }
