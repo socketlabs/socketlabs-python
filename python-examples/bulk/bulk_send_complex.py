@@ -3,7 +3,7 @@ import os
 
 from socketlabs.injectionapi import SocketLabsClient
 from socketlabs.injectionapi.message.__imports__ import \
-    Attachment, BulkMessage, BulkRecipient, CustomHeader, EmailAddress
+    Attachment, BulkMessage, BulkRecipient, CustomHeader, EmailAddress, Metadata
 
 
 # build the message
@@ -156,7 +156,6 @@ attachment4.add_custom_header("Place", "Beach")
 
 message.add_attachment(attachment4)
 
-
 # Adding Custom Headers
 # ==========================
 # Add CustomHeader using a list
@@ -172,6 +171,37 @@ message.custom_headers.append(CustomHeader("message-has-attachments", "true"))
 # Add CustomHeader using the add_custom_header function
 message.add_custom_header("testMessageHeader", "I am a message header")
 
+# Adding Metadata
+# ==========================
+# Add Metadata using a list
+
+metadata = [
+    Metadata("example-type", "basic-send-complex-example"),
+    Metadata("message-contains", "attachments, headers")
+]
+message.metadata = metadata
+
+# Add Metadata directly to the list
+message.metadata.append(Metadata("message-has-attachments", "true"))
+
+# Add Metadata using the add_metadata function
+message.add_metadata("testMessageHeader", "I am metadata")
+
+# Adding Tags
+# ==========================
+# Add Metadata using a list
+
+tags = [
+    "example-type:basic-send-complex-example"
+]
+message.tags = tags
+
+# Add Metadata directly to the list
+message.tags.append("message-has-attachments:true")
+
+# Add Metadata using the add_metadata function
+message.add_tag("I am a test message")
+message.add_tag("python-Example")
 
 # get credentials from environment variables
 server_id = int(os.environ.get('SOCKETLABS_SERVER_ID'))

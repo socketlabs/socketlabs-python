@@ -3,6 +3,7 @@ from .bulkrecipient import BulkRecipient
 from .customheader import CustomHeader
 from .emailaddress import EmailAddress
 from .messagebase import MessageBase
+from .metadata import Metadata
 
 
 class BulkMessage(MessageBase):
@@ -50,6 +51,8 @@ class BulkMessage(MessageBase):
         self._custom_headers = []
         self._to_recipients = []
         self._global_merge_data = dict()
+        self._metadata = []
+        self._tags = []
 
     @property
     def to_recipient(self):
@@ -380,6 +383,77 @@ class BulkMessage(MessageBase):
         if isinstance(header, dict):
             for name, value in header.items():
                 self._custom_headers.append(CustomHeader(name, value))
+
+    @property
+    def metadata(self):
+        """
+        Get the list of Metadata.
+        :return list of Metadata
+        :rtype list
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, val: list):
+        """
+        Set the list of Metadata.
+        :param val: list of Metadata
+        :type val: list
+        """
+        self._metadata = []
+        if val is not None:
+            for item in val:
+                if isinstance(item, Metadata):
+                    self._metadata.append(item)
+
+    def add_metadata(self, name, val: str = None):
+        """
+        Add a Metadata item to the message
+        :param name: the Metadata. Metadata, dict, and string is allowed
+        :type name: Metadata, dict, str
+        :param val: the metadata value, required if name is str
+        :type val: str
+        """
+        if isinstance(name, Metadata):
+            self._metadata.append(name)
+        if isinstance(name, str):
+            self._metadata.append(Metadata(name, val))
+        if isinstance(name, dict):
+            for name, value in name.items():
+                self._metadata.append(Metadata(name, value))
+
+    @property
+    def tags(self):
+        """
+        Get the list of Metadata.
+        :return list of Metadata
+        :rtype list
+        """
+        return self._tags
+
+    @tags.setter
+    def tags(self, val: list):
+        """
+        Set the list of Metadata.
+        :param val: list of Metadata
+        :type val: list
+        """
+        self._tags = []
+        if val is not None:
+            for item in val:
+                self._tags.append(item)
+
+    def add_tag(self, val: str):
+        """
+        Add a Tag item to the message
+        :param val: the tag value
+        :type val: str
+        """
+        if isinstance(val, str):
+            self._tags.append(val)
+        if isinstance(val, list):
+            for value in val.items():
+                self._tags.append(value)
 
     def __str__(self):
         """

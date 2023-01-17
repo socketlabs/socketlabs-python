@@ -39,6 +39,10 @@ def validate_base_message(message: MessageBase):
         if not has_valid_custom_headers(message.custom_headers):
             return SendResult.MessageValidationInvalidCustomHeaders
 
+    if message.metadata is not None and len(message.metadata) > 0:
+        if not has_valid_metadata(message.metadata):
+            return SendResult.MessageValidationInvalidMetadata
+
     return SendResult.Success
 
 
@@ -288,6 +292,23 @@ def has_valid_custom_headers(custom_headers: list):
     if custom_headers is None:
         return True
     for item in custom_headers:
+        valid = item.isvalid()
+        if valid is False:
+            return False
+    return True
+
+
+def has_valid_metadata(metadata: list):
+    """
+    Check if the list of metadata is valid
+    :param metadata: list of Metadata to validate
+    :type metadata: list
+    :return the result
+     :rtype bool
+    """
+    if metadata is None:
+        return True
+    for item in metadata:
         valid = item.isvalid()
         if valid is False:
             return False

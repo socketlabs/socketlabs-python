@@ -2,6 +2,7 @@ from .attachment import Attachment
 from .customheader import CustomHeader
 from .emailaddress import EmailAddress
 from .messagebase import MessageBase
+from .metadata import Metadata
 
 
 class BasicMessage(MessageBase):
@@ -30,7 +31,7 @@ class BasicMessage(MessageBase):
         message.add_to_email_address(EmailAddress("recipient4@example.com", "Recipient #4"))
 
     """
-    
+
     def __init__(self):
         self._subject = None
         self._plain_text_body = None
@@ -47,6 +48,8 @@ class BasicMessage(MessageBase):
         self._to_recipients = []
         self._cc_recipients = []
         self._bcc_recipients = []
+        self._metadata = []
+        self._tags = []
 
     @property
     def to_email_address(self):
@@ -404,21 +407,93 @@ class BasicMessage(MessageBase):
                 if isinstance(item, CustomHeader):
                     self._custom_headers.append(item)
 
-    def add_custom_header(self, header, val: str = None):
+    def add_custom_header(self, name, val: str = None):
         """
-        Add a CustomHeader to the attachment
-        :param header: the CustomHeader. CustomHeader, dict, and string is allowed
-        :type header: CustomHeader, dict, str
-        :param val: the custom header value, required if header is str
+        Add a CustomHeader to the message
+        :param name: the CustomHeader. CustomHeader, dict, and string is allowed
+        :type name: CustomHeader, dict, str
+        :param val: the custom header value, required if name is str
         :type val: str
         """
-        if isinstance(header, CustomHeader):
-            self._custom_headers.append(header)
-        if isinstance(header, str):
-            self._custom_headers.append(CustomHeader(header, val))
-        if isinstance(header, dict):
-            for name, value in header.items():
+        if isinstance(name, CustomHeader):
+            self._custom_headers.append(name)
+        if isinstance(name, str):
+            self._custom_headers.append(CustomHeader(name, val))
+        if isinstance(name, dict):
+            for name, value in name.items():
                 self._custom_headers.append(CustomHeader(name, value))
+
+    @property
+    def metadata(self):
+        """
+        Get the list of Metadata.
+        :return list of Metadata
+        :rtype list
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, val: list):
+        """
+        Set the list of Metadata.
+        :param val: list of Metadata
+        :type val: list
+        """
+        self._metadata = []
+        if val is not None:
+            for item in val:
+                if isinstance(item, Metadata):
+                    self._metadata.append(item)
+
+    def add_metadata(self, name, val: str = None):
+        """
+        Add a Metadata item to the message
+        :param name: the Metadata. Metadata, dict, and string is allowed
+        :type name: Metadata, dict, str
+        :param val: the metadata value, required if name is str
+        :type val: str
+        """
+        if isinstance(name, Metadata):
+            self._metadata.append(name)
+        if isinstance(name, str):
+            self._metadata.append(Metadata(name, val))
+        if isinstance(name, dict):
+            for name, value in name.items():
+                self._metadata.append(Metadata(name, value))
+
+    @property
+    def tags(self):
+        """
+        Get the list of Metadata.
+        :return list of Metadata
+        :rtype list
+        """
+        return self._tags
+
+    @tags.setter
+    def tags(self, val: list):
+        """
+        Set the list of Metadata.
+        :param val: list of Metadata
+        :type val: list
+        """
+        self._tags = []
+        if val is not None:
+            for item in val:
+                self._tags.append(item)
+
+    def add_tag(self, val: str):
+        """
+        Add a Tag item to the message
+        :param val: the tag value
+        :type val: str
+        """
+        if isinstance(val, str):
+            self._tags.append(val)
+        if isinstance(val, list):
+            for value in val.items():
+                self._tags.append(value)
+
 
     def __str__(self):
         """

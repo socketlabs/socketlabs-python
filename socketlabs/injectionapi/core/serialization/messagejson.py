@@ -2,6 +2,7 @@ from .addressjson import AddressJson
 from .attachmentjson import AttachmentJson
 from .customheaderjson import CustomHeaderJson
 from .mergedatajson import MergeDataJson
+from .metadatajson import MetadataJson
 
 
 class MessageJson(object):
@@ -27,6 +28,8 @@ class MessageJson(object):
         self._cc_email_address = []
         self._bcc_email_address = []
         self._merge_data = None
+        self._metadata = []
+        self._tags = []
 
     @property
     def to_email_address(self):
@@ -165,7 +168,7 @@ class MessageJson(object):
         :type val: str
         """
         self._amp_body = val
-        
+
     @property
     def api_template(self):
         """
@@ -355,6 +358,68 @@ class MessageJson(object):
         """
         self._merge_data = val
 
+
+    @property
+    def metadata(self):
+        """
+       Get the list of MetadataJson.
+        :return list of MetadataJson
+        :rtype list
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, val: list):
+        """
+        Set the list of MetadataJson.
+        :param val: list of MetadataJson
+        :type val: list
+        """
+        self._metadata = []
+        if val is not None:
+            for item in val:
+                if isinstance(item, MetadataJson):
+                    self._metadata.append(item)
+
+    def add_metadata(self, name: str, val: str):
+        """
+        Add a MetadataJson to the metadata list
+        :param name: the name
+        :type val: str
+        :param val: the value
+        :type val: str
+        """
+        self._metadata.append(MetadataJson(name, val))
+
+    @property
+    def tags(self):
+        """
+       Get the list of tags.
+        :return list of tags
+        :rtype list
+        """
+        return self._tags
+
+    @tags.setter
+    def tags(self, val: list):
+        """
+        Set the list of tags.
+        :param val: list of tags
+        :type val: list
+        """
+        self._tags = []
+        if val is not None:
+            for item in val:
+                self._tags.append(item)
+
+    def add_tags(self, val: str):
+        """
+        Add a string to the tags list
+        :param val: the value
+        :type val: str
+        """
+        self._tags.append(val)
+
     def to_json(self):
         """
         build json dict for MessageJson
@@ -425,5 +490,14 @@ class MessageJson(object):
 
         if self.merge_data:
             json["mergeData"] = self.merge_data.to_json()
+
+        if len(self.metadata) > 0:
+            e = []
+            for i in self.metadata:
+                e.append(i.to_json())
+            json["metadata"] = e
+
+        if len(self.tags) > 0:
+            json["tags"] = self.tags
 
         return json
