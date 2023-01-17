@@ -30,7 +30,7 @@ pip install socketlabs-injectionapi
 
 You can just download the package and install from a local archive file.
 
-> [socketlabs_injectionapi-1.4.0.tar.gz](https://github.com/socketlabs/socketlabs-python/releases/download/socketlabs_injectionapi-1.4.0.tar.gz)
+> [socketlabs_injectionapi-1.4.0.tar.gz](https://github.com/socketlabs/socketlabs-python/releases/download/1.4.0/socketlabs_injectionapi-1.4.0.tar.gz)
 
 ```
 pip install <path>/socketlabs_injectionapi-1.4.0.tar.gz
