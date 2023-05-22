@@ -9,17 +9,29 @@ class ApiKeyParseResult(Enum):
     """ No result could be produced. """
     NoneSet = 0
 
+    """ Invalid key length was found. """
+    InvalidKeyLength = 1
+
+    """ Invalid key format was found. """
+    InvalidKeyFormat = 2
+
     """ The key was found to be blank or invalid. """
-    InvalidEmptyOrWhitespace = 1
+    InvalidEmptyOrWhitespace = 3
 
     """ The public portion of the key was unable to be parsed. """
-    InvalidUnableToExtractPublicPart = 2
+    InvalidUnableToExtractPublicPart = 4
 
     """ The secret portion of the key was unable to be parsed. """
-    InvalidUnableToExtractSecretPart = 3
+    InvalidUnableToExtractSecretPart = 5
+
+    """ The public portion of the key is the incorrect length. """
+    InvalidPublicPartLength = 6
+
+    """ The secret portion of the key is the incorrect length. """
+    InvalidSecretPartLength = 7
 
     """ Key was successfully parsed. """
-    Success = 4
+    Success = 8
 
     def __str__(self):
         """
