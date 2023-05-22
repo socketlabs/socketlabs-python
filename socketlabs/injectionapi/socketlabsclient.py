@@ -13,6 +13,8 @@ from .message.basicmessage import BasicMessage
 from .message.bulkmessage import BulkMessage
 from .proxy import Proxy
 from .sendresult import SendResult
+from .core.apikeyparser import ApiKeyParser
+from .core.apikeyparseresult import ApiKeyParseResult
 
 
 class SocketLabsClient(object):
@@ -81,13 +83,15 @@ class SocketLabsClient(object):
     def number_of_retries(self, retries: int):
         self._number_of_retries = retries
 
-    def __build_http_request(self):
+    def __build_http_request(self, authentication: str):
         """
         Build the HttpRequest. Will add the proxy, if set
+        :param authentication: the API key to include as a bearer token
+        :type authentication: object
         :return the HttpRequest object to use for the request
         :rtype HttpRequest
         """
-        req = HttpRequest(HttpRequest.HttpRequestMethod.POST, self.__endpoint, self.request_timeout)
+        req = HttpRequest(HttpRequest.HttpRequestMethod.POST, self.__endpoint, self.request_timeout, authentication)
         if self._http_proxy is not None:
             req.proxy = self._http_proxy
         return req
@@ -119,10 +123,19 @@ class SocketLabsClient(object):
         if not resp.result == SendResult.Success:
             return resp
 
+        api_key_parser = ApiKeyParser()
+        parse_result = api_key_parser.parse(self._api_key)
+
         req_factory = InjectionRequestFactory(self._server_id, self._api_key)
+        http_request = self.__build_http_request("")
+
+        if parse_result == ApiKeyParseResult.Success:
+            req_factory = InjectionRequestFactory(self._server_id, "")
+            http_request = self.__build_http_request(self._api_key)
+
         body = req_factory.generate_request(message)
 
-        retry_handler = RetryHandler(self.__build_http_request(), RetrySettings(self.number_of_retries))
+        retry_handler = RetryHandler(http_request, RetrySettings(self.number_of_retries))
         response = retry_handler.send(body)
 
         data = response.read().decode("utf-8")
@@ -143,10 +156,19 @@ class SocketLabsClient(object):
         if not resp.result == SendResult.Success:
             return resp
 
+        api_key_parser = ApiKeyParser()
+        parse_result = api_key_parser.parse(self._api_key)
+
         req_factory = InjectionRequestFactory(self._server_id, self._api_key)
+        http_request = self.__build_http_request("")
+
+        if parse_result == ApiKeyParseResult.Success:
+            req_factory = InjectionRequestFactory(self._server_id, "")
+            http_request = self.__build_http_request(self._api_key)
+
         body = req_factory.generate_request(message)
 
-        retry_handler = RetryHandler(self.__build_http_request(), RetrySettings(self.number_of_retries))
+        retry_handler = RetryHandler(http_request, RetrySettings(self.number_of_retries))
         response = retry_handler.send(body)
 
         data = response.read().decode("utf-8")
