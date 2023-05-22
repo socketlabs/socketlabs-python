@@ -9,6 +9,7 @@ from enum import Enum
 from ..version import __version__
 from ..proxy import Proxy
 
+from .stringextension import StringExtension
 from .httpendpoint import HttpEndpoint
 from .injectionresponseparser import InjectionResponseParser
 from .serialization.injectionrequest import InjectionRequest
@@ -28,7 +29,7 @@ class HttpRequest(object):
         PUT = 2
         DELETE = 3
 
-    def __init__(self, method: HttpRequestMethod, endpoint: HttpEndpoint, timeout: int):
+    def __init__(self, method: HttpRequestMethod, endpoint: HttpEndpoint, timeout: int, authentication: str):
         """
         Creates a new instance of the HTTP Request class
         :param method: the HTTP request method
@@ -40,6 +41,14 @@ class HttpRequest(object):
         self._endpoint = endpoint
         self._http_proxy = None
         self._timeout = timeout
+        self._authentication = authentication
+        self._headers = {
+            'User-Agent': self.__user_agent,
+            'Content-Type': 'application/json; charset=utf-8',
+            'Accept': 'application/json',
+        }
+        if not StringExtension.is_none_or_white_space(authentication):
+            self._headers["Authorization"] = "Bearer " + authentication
 
     @property
     def __user_agent(self):
@@ -108,7 +117,7 @@ class HttpRequest(object):
         """
 
         try:
-
+            print (request)
             th = threading.Thread(target=self.__queue_request,
                                   kwargs={
                                       "request": request,
@@ -143,17 +152,12 @@ class HttpRequest(object):
         :return the injection response received from the request
         :rtype InjectionResponse
         """
-        headers = {
-            'User-Agent': self.__user_agent,
-            'Content-Type': 'application/json; charset=utf-8',
-            'Accept': 'application/json',
-        }
 
         json_body = json.dumps(request.to_json())
 
         try:
             connection = self.__get_connection()
-            connection.request("POST", self._endpoint.url, json_body, headers)
+            connection.request("POST", self._endpoint.url, json_body, self._headers)
             response = connection.getresponse()
 
         except Exception as e:

@@ -60,7 +60,7 @@ def get_injection_response_dto(response: str):
 
     if 'MessageResults' in dct:
         resp_dto.message_results = []
-        for item in dct['MessageResults']:
+        for item in dct['MessageResults'] or []:
             message_dto = MessageResultDto()
             if 'Index' in item:
                 message_dto.index = item['Index']
