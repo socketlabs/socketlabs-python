@@ -1,9 +1,11 @@
+from urllib.parse import urlparse
+
 class HttpEndpoint(object):
     """
     The HTTP endpoint
     """
 
-    def __init__(self, host: str = None, url: str = None):
+    def __init__(self, url: str):
         """
         Create an instance of the HttpEndpoint class
         :param host: the host name
@@ -11,8 +13,10 @@ class HttpEndpoint(object):
         :param url: the url
         :type url: str
         """
-        self._host = host
-        self._url = url
+        parsed_url = urlparse(url)
+        self._host = parsed_url.hostname
+        self._url = parsed_url.path
+
 
     @property
     def url(self):
