@@ -41,7 +41,7 @@ class SocketLabsClient(object):
         self._http_endpoint = HttpEndpoint("inject.socketlabs.com", "/api/v1/email")
 
     @property
-    def __endpoint(self):
+    def endpoint(self):
         """
         The SocketLabs Injection API endpoint
         :return the Http Endpoint for the request
@@ -50,7 +50,7 @@ class SocketLabsClient(object):
         return self._http_endpoint
 
     @property.setter
-    def __endpoint(self, http_endpoint: HttpEndpoint):
+    def endpoint(self, http_endpoint: HttpEndpoint):
         """
         The SocketLabs Injection API endpoint
         :return the Http Endpoint for the request
