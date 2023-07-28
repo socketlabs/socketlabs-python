@@ -38,15 +38,16 @@ class SocketLabsClient(object):
         self._http_proxy = proxy
         self._request_timeout = 120
         self._number_of_retries = 0
+        self._endpoint = HttpEndpoint("inject.socketlabs.com", "/api/v1/email")
 
     @property
-    def __endpoint(self):
+    def endpoint(self):
         """
         The SocketLabs Injection API endpoint
         :return the Http Endpoint for the request
         :rtype HttpEndpoint
         """
-        return HttpEndpoint("inject.socketlabs.com", "/api/v1/email")
+        return self._endpoint
 
     @property
     def __proxy(self):
