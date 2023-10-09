@@ -120,6 +120,9 @@ class SendResult(Enum):
     """ SDK Validation Error : Message contains invalid metadata """
     MessageValidationInvalidMetadata = 37
 
+    """ Metadata and tags exceed 12.5KB """
+    MetadataOrTagsAreTooLarge = 38
+
     def __str__(self):
         """
         String representation of the SendResult Enum
@@ -172,6 +175,7 @@ class SendResult(Enum):
                 "Invalid Custom Headers were found in the message",
             37: "SDK Validation Error : "
                 "Message contains invalid metadata",
+            38: "Metadata and tags exceed 12.5KB"
         }
         return switcher.get(self.value, "An error has occurred that was unforeseen")
 
